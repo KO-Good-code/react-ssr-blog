@@ -1,0 +1,227 @@
+.index{
+  .historyCord{
+    margin-top:20px;
+    border-radius: 4px;
+    align-items: flex-start;
+    line-height: 24px;
+    justify-content: flex-start;
+    .post-info{
+      flex:1;
+      h3{
+        cursor: pointer;
+        margin-top: 0;
+        margin-bottom: 5px;
+        color: #666;
+        font-size: 18px;
+        font-weight: bolder;
+        transition: color 0.4s;
+        word-break: break-all;
+        // -webkit-text-stroke: 1px #4990E2;
+        display: inline-block;
+        &:hover{
+          color: #4990E2;
+        }
+      }
+      .post-tags{
+        span{
+          --hue: 190;
+          --ease-in-duration: 0.25s;
+          --ease-out-duration: 0.65s;
+          --ease-out-delay: var(--ease-in-duration);
+          position: relative;
+          font-size: 12px;
+          line-height: 1.5;
+          text-decoration: none;
+          text-transform: uppercase;
+          outline: transparent;
+          overflow: hidden;
+          cursor: pointer;
+          user-select: none;
+          white-space: nowrap;
+          transition: 0.25s;
+          display: inline-block;
+          &:hover{
+            background: transparent;
+            box-shadow: 0 0 20px 10px hsla(var(--hue), 100%, 41%, 0.2);
+            &::before{
+              transform:translateX(100%);
+            }
+          }
+          &::before{
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              120deg,
+              transparent,
+              hsla(var(--hue), 100%, 41%, 0.5),
+              transparent
+            );
+            transform: translateX(-100%);
+            transition: .6s;
+          }
+        }
+      }
+    }
+    .post-time{
+      // font-style: oblique;
+      color: #999999;
+      width: 125px;
+      font-weight: 300;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .historyCord{
+      flex-direction: column;
+      .post-time{
+        font-style: oblique;
+        font-size: 11px;
+      }
+      .post-info{
+        h3{
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  @function sample($list) {
+    @return nth($list, random(length($list)) )
+  };
+  
+  @function bubbles($color, $count: 16) {
+    $bubbles: ();
+    $bubbles-type: (
+      radial-gradient(circle, $color 20%, transparent 20%),
+      radial-gradient(circle, transparent 20%, $color 20%, transparent 30%)
+    );
+    @for $i from 1 through $count {
+      $bubbles: append($bubbles, sample($bubbles-type) , comma )
+    }
+    @return $bubbles;
+  }
+  
+  @function random_range($min, $max) {
+    $rand: random();
+    $random_range: $min + floor($rand * (($max - $min) + 1));
+    @return $random_range;
+  }
+  
+  @function random_sizes($count: 16) {
+    $sizes: ();
+    @for $i from 1 through $count {
+      $sizes: append(
+        $sizes,
+        (random_range(10, 20) * 1%) (random_range(10, 20) * 1%),
+        comma
+      );
+    }
+    @return $sizes;
+  }
+  @keyframes bubbles {
+    0% {
+      background-position: 18% 40%, 20% 31%, 30% 30%, 40% 30%, 50% 30%, 57% 30%,
+        65% 30%, 80% 32%, 15% 60%, 83% 60%, 18% 70%, 25% 70%, 41% 70%, 50% 70%,
+        64% 70%, 80% 71%;
+    }
+  
+    50% {
+      background-position: 10% 44%, 0% 20%, 15% 5%, 30% 0%, 42% 0%, 62% -2%,
+        75% 0%, 95% -2%, 0% 80%, 95% 55%, 7% 100%, 24% 100%, 41% 100%, 55% 95%,
+        68% 96%, 95% 100%;
+    }
+  
+    100% {
+      background-position: 5% 44%, -5% 20%, 7% 5%, 23% 0%, 37% 0, 58% -2%, 80% 0%,
+        100% -2%, -5% 80%, 100% 55%, 2% 100%, 23% 100%, 42% 100%, 60% 95%, 70% 96%,
+        100% 100%;
+      background-size: 0% 0%;
+    }
+  }
+  
+  .paging{
+    margin-top: 20px;
+    .center{
+      flex: 1;
+    }
+    .but{
+      position: relative;
+      --btn-left-color: hsl(141, 100%, 41%);
+      --btn-right-color: hsl(348, 86%, 61%);
+      padding: 10px 15px;
+      border: none;
+      line-height: 1.5;
+      border-radius: 20px;
+      
+      transition: transform ease-in 0.1s, background-color ease-in 0.1s;
+      cursor: pointer;
+      &::before {
+        position: absolute;
+        content: "";
+        left: -2em;
+        right: -2em;
+        top: -2em;
+        bottom: -2em;
+        transition: ease-in-out 0.5s;
+        background-repeat: no-repeat;
+          background-size: random_sizes();
+        background-position: 18% 40%, 20% 31%, 30% 30%, 40% 30%, 50% 30%, 57% 30%,
+          65% 30%, 80% 32%, 15% 60%, 83% 60%, 18% 70%, 25% 70%, 41% 70%, 50% 70%,
+          64% 70%, 80% 71%;
+        animation: bubbles ease-in-out 0.75s forwards;
+        border: none;
+      }
+      &-pri{
+        background-color: var(--btn-left-color);
+        &::before{
+          background-image: bubbles(var(--btn-left-color));
+        }
+      }
+      
+      &-next{
+        background-color: var(--btn-right-color);
+        &::before{
+          background-image: bubbles(var(--btn-right-color));
+        }
+      }
+      
+      &:active {
+        transform: scale(0.95);
+        &::before {
+          animation: none;
+          background-size: 0;
+          border: none;
+        }
+      }
+      a{
+        color: #fff;
+        font-weight: bolder;
+      }
+    }
+  }
+  
+  @keyframes bubbles {
+    0% {
+      background-position: 18% 40%, 20% 31%, 30% 30%, 40% 30%, 50% 30%, 57% 30%,
+        65% 30%, 80% 32%, 15% 60%, 83% 60%, 18% 70%, 25% 70%, 41% 70%, 50% 70%,
+        64% 70%, 80% 71%;
+    }
+  
+    50% {
+      background-position: 10% 44%, 0% 20%, 15% 5%, 30% 0%, 42% 0%, 62% -2%,
+        75% 0%, 95% -2%, 0% 80%, 95% 55%, 7% 100%, 24% 100%, 41% 100%, 55% 95%,
+        68% 96%, 95% 100%;
+    }
+  
+    100% {
+      background-position: 5% 44%, -5% 20%, 7% 5%, 23% 0%, 37% 0, 58% -2%, 80% 0%,
+        100% -2%, -5% 80%, 100% 55%, 2% 100%, 23% 100%, 42% 100%, 60% 95%, 70% 96%,
+        100% 100%;
+      background-size: 0% 0%;
+    }
+  }
+  
+}

@@ -1,0 +1,31 @@
+footer {
+  margin: 30px 0;
+  flex-direction: column;
+  width: 100%;
+  p{
+    line-height: 30px;
+    font-size: 14px;
+    color: #0288d1;
+  }
+  .list-inline{
+    font-size: 20px;
+    i{
+      line-height: 20px;
+    }
+  }
+  li{
+    display: inline-block;
+    margin: 0 2px;
+    height: 30px;
+    width: 30px;
+    // background-color: #0288d1;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    &:hover{
+      i{
+        color: #0288d1;
+      }
+    }
+  }
+}

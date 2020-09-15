@@ -12,7 +12,7 @@ const ajax = axios.create({
 ajax.interceptors.response.use(
     response =>
       response.status === 200
-        ? Promise.resolve(response.data)
+        ? Promise.resolve(response.data.data)
         : Promise.reject(response),
     error => {
       const { response } = error;

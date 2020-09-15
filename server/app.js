@@ -39,19 +39,24 @@ app.use(
           resolve()
         })
       })
-      
-      const branch = matchRoutes(routes, ctx.url);
+      const branch = matchRoutes(routes, ctx.path);
       const promises = branch.map(({route}) => {
         const fetch = route.component.loadData;
-        return fetch instanceof Function ? fetch() : Promise.resolve(null);
+        return fetch instanceof Function ? fetch(ctx.query.id) : Promise.resolve(null);
       });
+      
       const data = await Promise.all(promises)
+      
       let initState = {};
       data.forEach(i => {
         Object.assign(initState, i)
       })
       const Ssr = () => <StaticRouter location={ctx.path}><App content={initState} /></StaticRouter>
-      html = html.replace('{{root}}', renderToString(<Ssr/>)).replace("%data%", JSON.stringify(initState));
+      html = html.replace('{{root}}', renderToString(<Ssr/>))
+      .replace("%data%", JSON.stringify(initState))
+      .replace("{{title}}", initState.title)
+      .replace("{{keywords}}", initState.keywords)
+      .replace("{{description}}", initState.description);
       ctx.body = html
     })
     .routes()

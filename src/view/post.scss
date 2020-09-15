@@ -1,0 +1,22 @@
+p{
+  margin: 10px 0;
+}
+.Post{
+  line-height: 30px;
+  color: #666;
+  background-color: #fff;
+  padding: 25px;
+  font-size: 14px;
+  width: 100%;
+  border-radius: 5px;
+  h1{
+    text-align: center;
+    color: #000;
+  }
+  .icon{
+    fill: rgba($color: #1296db, $alpha: 1.0);
+    &:hover{
+      fill: #ff6262;
+    }
+  }
+}

@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="{{keywords}}" >
+    <meta name="description" content="{{description}}" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
@@ -15,6 +17,7 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/themes/prism-okaidia.css" integrity="sha256-z3EcdeeMUihcuIaH67JlOEZOS7j//GrK89ZgXrWR/Fs=" crossorigin="anonymous">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -24,18 +27,23 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>{{title}}</title>
   </head>
   <body>
     
     <div id="root">{{root}}</div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/prism.min.js"></script> -->
     <% if (htmlWebpackPlugin.options.env === 'production') { %>
       <script src="//lib.baomitu.com/axios/0.19.0/axios.js"></script>
       <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
       <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <% } %>
     <script>
-      var __INITIAL_STATE__ = %data%
+      var __INITIAL_STATE__ = %data%;
+      // setTimeout(()=>{
+      // Prism.highlightAll()
+      // },100)
     </script>
+    
   </body>
 </html>

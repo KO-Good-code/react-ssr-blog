@@ -55,7 +55,12 @@ Post.loadData = async id => {
     post_id: id
   }
   const res = await http.getBlogPost({params});
-  return {post: res, id: id}
+  let context = {
+    title: res.title,
+    keywords: res.title,
+    description: res.title
+  };
+  return {post: res, id: id, ...context}
 }
 
 export default Post;

@@ -25,9 +25,9 @@ function TagsInfo (props) {
   }, [])
 
   return (
-    times && <div className="tags">
+    <div className="tags">
       {
-        Object.keys(times).map( i => <div className="" key={i}>
+        times && Object.keys(times).map( i => <div className="" key={i}>
           <h3>{i}</h3>
           {
             times[i].map( t => <Link className="tagsLi a" key={t.id} to={{pathname: `/post`, query: {id: t.id}, search: `?id=${t.id}`}}>

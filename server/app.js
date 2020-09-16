@@ -1,5 +1,5 @@
 
-import Koa from 'koa';
+const Koa = require('koa');
 import React from 'react';
 import Router from 'koa-router';
 import fs from 'fs';
@@ -44,20 +44,15 @@ app.use(
         const fetch = route.component.loadData;
         return fetch instanceof Function ? fetch(ctx.query.id) : Promise.resolve(null);
       });
-      
       const data = await Promise.all(promises)
-      
       let initState = {};
       data.forEach(i => {
         Object.assign(initState, i)
-      })
-      const Ssr = () => <StaticRouter location={ctx.path}><App content={initState} /></StaticRouter>
-      html = html.replace('{{root}}', renderToString(<Ssr/>))
-      .replace("%data%", JSON.stringify(initState))
-      .replace("{{title}}", initState.title)
-      .replace("{{keywords}}", initState.keywords)
-      .replace("{{description}}", initState.description);
-      ctx.body = html
+      });
+      const Ssr = () => <StaticRouter location={ctx.path}><App content={initState} /></StaticRouter>;
+      
+      html = html.replace('{{root}}', renderToString(<Ssr/>)).replace("%data%", JSON.stringify(initState)).replace("{{title}}", initState.title).replace("{{keywords}}", initState.keywords).replace("{{description}}", initState.description);
+      ctx.body = html;
     })
     .routes()
 )
